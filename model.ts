@@ -37,7 +37,7 @@ export default function initializeModels(sequelize: Sequelize) {
         tableName: 'permissions',
         schema: 'public',
         timestamps: true,
-        paranoid: true, // Soft delete
+        paranoid: true,
     });
 
     // Role Model
@@ -74,7 +74,7 @@ export default function initializeModels(sequelize: Sequelize) {
         tableName: 'roles',
         schema: 'public',
         timestamps: true,
-        paranoid: true, // Soft delete
+        paranoid: true,
     });
 
     // User Model
@@ -126,7 +126,7 @@ export default function initializeModels(sequelize: Sequelize) {
         tableName: 'users',
         schema: 'public',
         timestamps: true,
-        paranoid: true, // Soft delete
+        paranoid: true,
         indexes: [
             {
                 fields: ['email'],
@@ -197,7 +197,7 @@ export default function initializeModels(sequelize: Sequelize) {
         tableName: 'teams',
         schema: 'public',
         timestamps: true,
-        paranoid: true, // Soft delete
+        paranoid: true,
     });
 
     // Project Model
@@ -240,7 +240,7 @@ export default function initializeModels(sequelize: Sequelize) {
         tableName: 'projects',
         schema: 'public',
         timestamps: true,
-        paranoid: true, // Soft delete
+        paranoid: true,
         indexes: [
             {
                 fields: ['status'],
@@ -296,7 +296,7 @@ export default function initializeModels(sequelize: Sequelize) {
         tableName: 'tasks',
         schema: 'public',
         timestamps: true,
-        paranoid: true, // Soft delete
+        paranoid: true,
         indexes: [
             {
                 fields: ['status'],
@@ -349,7 +349,7 @@ export default function initializeModels(sequelize: Sequelize) {
         tableName: 'time_entries',
         schema: 'public',
         timestamps: true,
-        paranoid: true, // Soft delete
+        paranoid: true,
         indexes: [
             {
                 fields: ['startTime'],
@@ -434,7 +434,7 @@ export default function initializeModels(sequelize: Sequelize) {
         tableName: 'comments',
         schema: 'public',
         timestamps: true,
-        paranoid: true, // Soft delete
+        paranoid: true,
         indexes: [
             {
                 fields: ['taskId'],
@@ -445,7 +445,7 @@ export default function initializeModels(sequelize: Sequelize) {
         ]
     });
 
-    // Define associations with onDelete and onUpdate constraints
+    // associations with onDelete and onUpdate constraints
     User.belongsToMany(Team, {
         through: 'UserTeam',
         onDelete: 'CASCADE',
@@ -507,7 +507,7 @@ export default function initializeModels(sequelize: Sequelize) {
     });
     Comment.belongsTo(Task);
 
-    // Add new associations for roles and permissions
+    // associations for roles and permissions
     Role.belongsToMany(Permission, {
         through: RolePermission,
         onDelete: 'CASCADE',
@@ -526,7 +526,7 @@ export default function initializeModels(sequelize: Sequelize) {
         onDelete: 'CASCADE',
     });
 
-    // Update Team model to support team-specific roles
+
     Team.hasMany(UserRole, {
         foreignKey: 'resourceId',
         constraints: false,
@@ -539,7 +539,7 @@ export default function initializeModels(sequelize: Sequelize) {
         constraints: false
     });
 
-    // Update Project model to support project-specific roles
+
     Project.hasMany(UserRole, {
         foreignKey: 'resourceId',
         constraints: false,
